@@ -105,123 +105,311 @@ CREATE TABLE Table_Name (
 
 **Question 1**
 --
--- Paste Question 1 here
+Create a table named Bonuses with the following constraints:
+BonusID as INTEGER should be the primary key.
+EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
+BonusAmount as REAL should be greater than 0.
+BonusDate as DATE.
+Reason as TEXT should not be NULL.
+For example:
+
+Test	Result
+INSERT INTO Bonuses (BonusID, EmployeeID, BonusAmount, BonusDate, Reason) VALUES (1, 6, 1000.0, '2024-08-01', 'Outstanding performance');
+SELECT * FROM Bonuses;
+BonusID     EmployeeID  BonusAmount  BonusDate   Reason
+----------  ----------  -----------  ----------  -----------------------
+1           6           1000.0       2024-08-01  Outstanding performance
+
 
 ```sql
--- Paste your SQL code below for Question 1
+CREATE TABLE Bonuses(
+BonusID INTEGER PRIMARY KEY,
+EmployeeID INTEGER,
+BonusAmount REAL CHECK (BonusAmount>0),
+BonusDate DATE,
+Reason TEXT NOT NULL,
+FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
 ```
 
 **Output:**
+<img width="1228" height="849" alt="image" src="https://github.com/user-attachments/assets/ecbc6238-8f15-4a33-931d-a9a449851a62" />
 
-![Output1](output.png)
+
 
 **Question 2**
 ---
--- Paste Question 2 here
+Insert a student with RollNo 201, Name David Lee, Gender M, Subject Physics, and MARKS 92 into the Student_details table.
+
+For example:
+
+Test	Result
+SELECT * FROM Student_details WHERE RollNo = 201;
+RollNo      Name        Gender      Subject     MARKS
+----------  ----------  ----------  ----------  ----------
+201         David Lee   M           Physics     92
 
 ```sql
--- Paste your SQL code below for Question 2
+INSERT INTO Student_details 
+(RollNo,Name,Gender,Subject,MARKS)
+VALUES(201,'David Lee','M','Physics',92);
 ```
 
 **Output:**
 
-![Output2](output.png)
+
+<img width="1191" height="807" alt="image" src="https://github.com/user-attachments/assets/078080a4-434a-46f0-88c9-3ea5871d66e1" />
+
 
 **Question 3**
 ---
--- Paste Question 3 here
+Create a new table named item with the following specifications and constraints:
+item_id as TEXT and as primary key.
+item_desc as TEXT.
+rate as INTEGER.
+icom_id as TEXT with a length of 4.
+icom_id is a foreign key referencing com_id in the company table.
+The foreign key should set NULL on updates and deletes.
+item_desc and rate should not accept NULL.
+For example:
+
+Test	Result
+INSERT INTO item VALUES("ITM5","Charlie Gold",700,"COM4");
+UPDATE company SET com_id='COM5' WHERE com_id='COM4';
+SELECT * FROM item;
+item_id     item_desc     rate        icom_id
+----------  ------------  ----------  ----------
+ITM5        Charlie Gold  700
 
 ```sql
--- Paste your SQL code below for Question 3
+CREATE TABLE item(
+item_id TEXT PRIMARY KEY,
+item_desc TEXT,
+rate INTEGER,
+icom_id TEXT(4),
+FOREIGN KEY (icom_id) REFERENCES company(com_id)
+ON UPDATE SET NULL
+ON DELETE SET NULL
+
+);
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="1422" height="902" alt="image" src="https://github.com/user-attachments/assets/1e9eb2f4-e33a-4c50-8a85-e81114689934" />
+
+
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write an SQL Query to add the attributes designation, net_salary, and dob to the Companies table with the following data types:
+designation as VARCHAR(50)
+net_salary as NUMBER
+dob as DATE
+ 
+
+ 
+
+For example:
+
+Test	Result
+pragma table_info('Companies');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          int         0                       0
+1           name        varchar(50  0                       0
+2           address     text        0                       0
+3           email       varchar(50  0                       0
+4           phone       varchar(10  0                       0
+5           designatio  varchar(50  0                       0
+6           net_salary  number      0                       0
+7           dob         date        0                       0
 
 ```sql
--- Paste your SQL code below for Question 4
+ALTER TABLE Companies ADD designation varchar(50);
+ALTER TABLE Companies ADD net_salary number;
+ALTER TABLE Companies ADD dob date;
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="1240" height="828" alt="image" src="https://github.com/user-attachments/assets/0c1bf3a3-dc82-40b2-a28d-4c72aa2d615e" />
+
 
 **Question 5**
 ---
--- Paste Question 5 here
+Create a table named ProjectAssignments with the following constraints:
+AssignmentID as INTEGER should be the primary key.
+EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
+ProjectID as INTEGER should be a foreign key referencing Projects(ProjectID).
+AssignmentDate as DATE should be NOT NULL.
+For example:
 
-```sql
--- Paste your SQL code below for Question 5
-```
-
-**Output:**
-
-![Output5](output.png)
-
-**Question 6**
+Test	Result
+INSERT INTO ProjectAssignments (AssignmentID, EmployeeID, ProjectID, AssignmentDate) VALUES (2, 99, 1, '2024-01-03');
+Error: FOREIGN KEY constraint failed
 ---
--- Paste Question 6 here
+```sql
+CREATE TABLE ProjectAssignments(
+AssignmentID  INTEGER PRIMARY KEY,
+EmployeeID INTEGER,
+ProjectID INTEGER,
+AssignmentDate DATE NOT NULL, 
+FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID) 
+);
+```
+
+**Output:**
+<img width="1216" height="853" alt="image" src="https://github.com/user-attachments/assets/1e9d6cf3-2b2b-4bc6-858f-fdd6da535d9a" />
+
+---
+**Question 6**
+Insert a product with ProductID 104, Name Tablet, and Category Electronics into the Products table, where Price and Stock should use default values.
+
+For example:
+
+Test	Result
+SELECT ProductID, Name, Category, Price, Stock 
+FROM Products 
+WHERE ProductID = 104;
+ProductID   Name        Category     Price       Stock
+----------  ----------  -----------  ----------  ----------
+104         Tablet      Electronics  100         50
 
 ```sql
--- Paste your SQL code below for Question 6
+INSERT INTO PRODUCTS(ProductID,Name,Category)
+values(104,'Tablet','Electronics');
+
 ```
 
 **Output:**
 
-![Output6](output.png)
+
+<img width="1233" height="849" alt="image" src="https://github.com/user-attachments/assets/a85082a8-9f70-4f9f-baba-712477a50ed1" />
 
 **Question 7**
 ---
--- Paste Question 7 here
+Create a table named Products with the following constraints:
+ProductID as INTEGER should be the primary key.
+ProductName as TEXT should be unique and not NULL.
+Price as REAL should be greater than 0.
+StockQuantity as INTEGER should be non-negative.
+For example:
+
+Test	Result
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 10);
+select * from Products;
+ProductID   ProductName  Price       StockQuantity
+----------  -----------  ----------  -------------
+1           Laptop       999.99      10
+
 
 ```sql
--- Paste your SQL code below for Question 7
+CREATE TABLE Products(
+ProductID INTEGER PRIMARY KEY,
+ProductName TEXT UNIQUE NOT NULL,
+Price REAL CHECK(Price>0),
+StockQuantity INTEGER NOT NULL CHECK(StockQuantity>=0)
+);
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="1213" height="848" alt="image" src="https://github.com/user-attachments/assets/bebdb74a-a6ee-451e-8035-61bb81578c2b" />
+
 
 **Question 8**
 ---
--- Paste Question 8 here
+Write an SQL query to add two new columns, designation and net_salary, to the table Companies. The designation column should have a data type of varchar(50), and the net_salary column should have a data type of number.
+
+ 
+
+ 
+
+For example:
+
+Test	Result
+pragma table_info('Companies');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           id          int         0                       0
+1           name        varchar(50  0                       0
+2           address     text        0                       0
+3           email       varchar(50  0                       0
+4           phone       varchar(10  0                       0
+5           designatio  varchar(50  0                       0
+6           net_salary  number      0                       0
 
 ```sql
--- Paste your SQL code below for Question 8
+ALTER TABLE companies ADD designation varchar(50);
+ALTER TABLE companies ADD net_salary  number;
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="1239" height="851" alt="image" src="https://github.com/user-attachments/assets/f08af553-dbff-48f6-a1f2-9e3e6c76b3a5" />
+
 
 **Question 9**
 ---
--- Paste Question 9 here
+Insert all employees from Former_employees into Employee
+
+Table attributes are EmployeeID, Name, Department, Salary
+
+For example:
+
+Test	Result
+select * from Employee;
+EmployeeID  Name        Department  Salary
+----------  ----------  ----------  ----------
+201         John Doe    HR          50000
+202         Jane Smith  Engineerin  75000
+203         Emily Davi  Marketing   60000
 
 ```sql
--- Paste your SQL code below for Question 9
+INSERT INTO Employee (EmployeeID, Name,Department,Salary)
+SELECT EmployeeID,Name,Department,Salary
+FROM FORMER_employees;
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="1264" height="879" alt="image" src="https://github.com/user-attachments/assets/2374f583-1a19-41e3-8e7a-36cdb5933b82" />
+
 
 **Question 10**
 ---
--- Paste Question 10 here
+Create a table named Customers with the following columns:
+
+CustomerID as INTEGER
+Name as TEXT
+Email as TEXT
+JoinDate as DATETIME
+For example:
+
+Test	Result
+pragma table_info('Customers');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           CustomerID  INTEGER     0                       0
+1           Name        TEXT        0                       0
+2           Email       TEXT        0                       0
+3           JoinDate    DATETIME    0                       0
 
 ```sql
--- Paste your SQL code below for Question 10
+CREATE TABLE Customers(
+CustomerID INTEGER,
+Name TEXT,
+Email TEXT,
+JoinDate DATETIME
+);
 ```
 
 **Output:**
 
-![Output10](output.png)
+<img width="1258" height="857" alt="image" src="https://github.com/user-attachments/assets/92bd950b-ce16-4b50-9a5f-36e10a9a427e" />
+
 
 
 ## RESULT
